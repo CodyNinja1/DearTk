@@ -34,6 +34,9 @@ class DearTk:
         self.previousWidget.bind("<Button>", buttonFunc)
     
     def BindActionFuncDef(self, bindFunc) -> None:
+        self.window.bind(f"<{self.binding}>", bindFunc)
+
+    def BindActionPreviousWidgetFuncDef(self, bindFunc) -> None:
         self.previousWidget.bind(f"<{self.binding}>", bindFunc)
     
     def SetBinding(self, binding="") -> None:
