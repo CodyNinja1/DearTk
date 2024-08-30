@@ -3,12 +3,16 @@ from tkinter import ttk
 
 class DTKStyle:
     def __repr__(self):
-        return str(self.fgc) + " " + str(self.bgc) + " " + str(self.padding)
+        return f"({self.name}: {self.bgc}, {self.fgc}, {self.padding})"
 
-    def __init__(self, padding: int, fgc: str, bgc: str):
+    def __init__(self, padding: int, fgc: str, bgc: str, name: str = ""):
+        self.name = name
         self.padding = padding
         self.fgc = fgc
         self.bgc = bgc
+    
+    def SetName(self, name: str):
+        self.name = name
 
 class DearTk:
     def __init__(self):
@@ -131,16 +135,18 @@ class DearTk:
             self.styles[self.previousWidget.winfo_class()] = []
             self.styles[self.previousWidget.winfo_class()].append(style)
 
+        style.SetName(self.GetStyleNameFromPreviousWidget())
+
         print(self.styles)
 
-        ttk.Style().configure(style=self.GetStyleNameFromPreviousWidget(), padding=style.padding, background=style.bgc, foreground=style.fgc)
-        self.previousWidget.configure(style=self.GetStyleNameFromPreviousWidget())
+        ttk.Style().configure(style=style.name, padding=style.padding, background=style.bgc, foreground=style.fgc)
+        self.previousWidget.configure(style=style.name)
     
     def PushStylePreviousWidgetType(self, idx: int = -1) -> None:
         style: DTKStyle = self.styles[self.previousWidget.winfo_class()][idx]
 
-        ttk.Style().configure(style=self.GetStyleNameFromPreviousWidget(), padding=style.padding, background=style.bgc, foreground=style.fgc)
-        self.previousWidget.configure(style=self.GetStyleNameFromPreviousWidget())
+        ttk.Style().configure(style=style.name, padding=style.padding, background=style.bgc, foreground=style.fgc)
+        self.previousWidget.configure(style=style.name)
 
     def PopStylePreviousWidget(self) -> None:
         if (len(self.styles[self.previousWidget.winfo_class()]) == 0): raise Exception("No styles to pop!")
