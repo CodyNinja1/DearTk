@@ -3,7 +3,7 @@ from DearTk import DearTk
 DTK = DearTk()
 
 def main():
-    DTK.Begin("Calculator (parent)", "200x200")
+    DTK.Begin("Example (parent)", "200x200")
 
     DTK.Button("this is supposed to be red")
     @DTK.ButtonFuncDef
@@ -16,7 +16,7 @@ def main():
     DTK.GridPreviousWidget(row=0, column=1)
     DTK.PushStylePreviousWidget(fgc="#001a00", bgc="#c8c8c8")
 
-    DTK.BeginToplevel("guh (child)")
+    DTK.BeginToplevel("Example (child)")
     DTK.Button("another button")
     @DTK.ButtonFuncDef # shorthand for DTK.SetBinding("Button")
     def AnotherButton(Event: any):
@@ -25,7 +25,7 @@ def main():
     DTK.PushStylePreviousWidgetType() # gets the style from the previous button
 
     DTK.Label("label thing 2!")
-    DTK.SetBinding("Double-Button") # https://instructobit.com/tutorial/51/Python-Tkinter-event-handling for more info
+    DTK.SetBinding("Double-Button") # https://instructobit.com/tutorial/51/Python-Tkinter-event-handling
     @DTK.BindActionFuncDef
     def AnotherLabel(Event: any):
         print("woof (label)")
@@ -44,6 +44,9 @@ def main():
     DTK.GridPreviousWidget(row=2, column=2)
     DTK.PushStylePreviousWidgetType() # gets style from the previous button
 
+    DTK.Label("label with first style")
+    DTK.GridPreviousWidget(row=2, column=3)
+    DTK.PushStylePreviousWidgetType(0) # gets the style from the first label defined in the parent window
     DTK.End()
 
 if __name__ == "__main__":
