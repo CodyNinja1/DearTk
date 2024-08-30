@@ -12,6 +12,7 @@ class DTKStyle:
 
 class DearTk:
     def __init__(self):
+        self.binding: str = ""
         self.useTopLevel: int = -1
         self.toplevels: list[tk.Tk] = []
         self.window: tk.Tk = None
@@ -27,6 +28,12 @@ class DearTk:
 
     def ButtonFuncDef(self, buttonFunc) -> None:
         self.previousWidget.bind("<Button>", buttonFunc)
+    
+    def BindActionFuncDef(self, bindFunc) -> None:
+        self.previousWidget.bind(f"<{self.binding}>", bindFunc)
+    
+    def SetBinding(self, binding="") -> None:
+        self.binding = binding
 
     def Begin(self, windowTitle = "tk", geometry="") -> None:
         self.window = tk.Tk()
