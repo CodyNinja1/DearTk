@@ -25,13 +25,8 @@ class DearTk:
         if self.useTopLevel < len(self.toplevels): return self.toplevels[self.useTopLevel]
         else: raise Exception("No window is active!")
 
-    def WidgetWinfoClassToSequence(self, widget: tk.Widget):
-        if widget.winfo_class() == "TButton": return "Button"
-        if widget.winfo_class() == "TLabel": return "Label"
-        return widget.winfo_class()
-
     def ButtonFuncDef(self, buttonFunc) -> None:
-        self.previousWidget.bind("<" + self.WidgetWinfoClassToSequence(self.previousWidget) + "-" + "1>", buttonFunc)
+        self.previousWidget.bind("<Button>", buttonFunc)
 
     def Begin(self, windowTitle = "tk", geometry="") -> None:
         self.window = tk.Tk()
