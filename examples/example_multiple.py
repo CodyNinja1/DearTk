@@ -18,15 +18,31 @@ def main():
 
     DTK.BeginToplevel("guh (child)")
     DTK.Button("another button")
-    @DTK.ButtonFuncDef
+    @DTK.ButtonFuncDef # shorthand for DTK.SetBinding("Button")
     def AnotherButton(Event: any):
         print("woof")
     DTK.GridPreviousWidget(row=1, column=0)
     DTK.PushStylePreviousWidgetType() # gets the style from the previous button
 
     DTK.Label("label thing 2!")
+    DTK.SetBinding("Double-Button") # https://instructobit.com/tutorial/51/Python-Tkinter-event-handling for more info
+    @DTK.BindActionFuncDef
+    def AnotherLabel(Event: any):
+        print("woof (label)")
     DTK.GridPreviousWidget(row=1, column=1)
-    DTK.PushStylePreviousWidget(fgc="grey", bgc="cyan")
+    DTK.PushStylePreviousWidget(fgc="grey", bgc="cyan") # same as above, this style exists ONLY for labels
+
+    DTK.Button("buttonese")
+    DTK.GridPreviousWidget(row=2, column=1)
+    DTK.PushStylePreviousWidget(fgc="black", bgc="yellow") # new style for buttons
+
+    DTK.Label("another label!")
+    DTK.GridPreviousWidget(row=2, column=0)
+    DTK.PushStylePreviousWidgetType() # gets the style from the previous label
+
+    DTK.Button("button but better")
+    DTK.GridPreviousWidget(row=2, column=2)
+    DTK.PushStylePreviousWidgetType() # gets style from the previous button
 
     DTK.End()
 
