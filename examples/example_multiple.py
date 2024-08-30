@@ -27,7 +27,7 @@ def main():
     DTK.Label("label thing 2!")
     DTK.SetBinding("Double-Button") # https://instructobit.com/tutorial/51/Python-Tkinter-event-handling
     @DTK.BindActionFuncDef
-    def AnotherLabel(Event: any):
+    def AnotherLabel(Event: any):   # double clicking the label will trigger this function
         print("woof (label)")
     DTK.GridPreviousWidget(row=1, column=1)
     DTK.PushStylePreviousWidget(fgc="grey", bgc="cyan") # same as above, this style exists ONLY for labels
