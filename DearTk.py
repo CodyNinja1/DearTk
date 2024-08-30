@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import tkinter.font as Font
 
 class DTKStyle:
     def __repr__(self):
@@ -77,34 +78,43 @@ class DearTk:
             self.widgets[self.previousWidget.winfo_class()].append(self.previousWidget)
         self.IncreaseWidgetAmount()
 
-    def LabelVar(self, label: tk.StringVar) -> None:
+    def LabelVar(self, label: tk.StringVar, **kwargs) -> tk.Widget:
         win: tk.Tk = None
         if (self.useTopLevel == -1): win = self.window
         else: win = self.toplevels[self.useTopLevel]
 
         if (win == None): raise Exception("Use Begin() before using LabelVar()!")
-        self.previousWidget = ttk.Label(win, text=label)
+        self.previousWidget = ttk.Label(win)
+        self.previousWidget.config(kwargs)
+        self.previousWidget.config(textvariable=label)
         self.AppendWidget()
+        return self.previousWidget
 
-    def Label(self, label: str) -> None:
+    def Label(self, buttonLabel: str, **kwargs) -> tk.Widget:
         win: tk.Tk = None
         if (self.useTopLevel == -1): win = self.window
         else: win = self.toplevels[self.useTopLevel]
 
         if (win == None): raise Exception("Use Begin() before using Label()!")
-        self.previousWidget = ttk.Label(win, text=label)
+        self.previousWidget = ttk.Label(win)
+        self.previousWidget.config(kwargs)
+        self.previousWidget.config(text=buttonLabel)
         self.AppendWidget()
+        return self.previousWidget
 
-    def ButtonVar(self, buttonLabel: tk.StringVar) -> None:
+    def ButtonVar(self, buttonLabel: tk.StringVar, **kwargs) -> tk.Widget:
         win: tk.Tk = None
         if (self.useTopLevel == -1): win = self.window
         else: win = self.toplevels[self.useTopLevel]
 
         if (win == None): raise Exception("Use Begin() before using ButtonVar()!")
         self.previousWidget = ttk.Button(win, text=buttonLabel)
+        self.previousWidget.config(kwargs)
+        self.previousWidget.config(textvariable=buttonLabel)
         self.AppendWidget()
+        return self.previousWidget
     
-    def Button(self, buttonLabel: str, **kwargs) -> None:
+    def Button(self, buttonLabel: str, **kwargs) -> tk.Widget:
         win: tk.Tk = None
         if (self.useTopLevel == -1): win = self.window
         else: win = self.toplevels[self.useTopLevel]
@@ -114,7 +124,12 @@ class DearTk:
         self.previousWidget.config(kwargs)
         self.previousWidget.config(text=buttonLabel)
         self.AppendWidget()
+        return self.previousWidget
     
+    def FontPreviousWidget(self, family="", size=12, weight="normal", slant="roman", underline=False, overstrike=False) -> None:
+        # -family, -size, -weight, -slant, -underline, or -overstrike
+        self.previousWidget.configure(font=Font.Font(root=self.GetWindow(), name="TLabel", family=family, size=size, weight=weight, slant=slant, underline=underline, overstrike=overstrike))
+
     def PackPreviousWidget(self, **kwargs) -> None:
         self.previousWidget.pack(kwargs)
     
